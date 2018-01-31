@@ -8,7 +8,7 @@
         "name": "aformusatii",
         "email": "aformusatii@gmail.com"
     }],
-    "keywords": ["node-red", "miio", "mi", "mijia", "xiaomi"],
+    "keywords": ["node-red", "miio", "mi", "mijia", "aqara", "xiaomi"],
     "node-red": {
         "nodes": {
             "switch": "switch/switch.js",
