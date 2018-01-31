@@ -3,6 +3,7 @@
     "version": "0.0.1",
     "license": "MIT",
     "description": "miIO device library for node red",
+    "repository": "aformusatii/node-red-contrib-xiaomi-miio",
     "maintainers": [{
         "name": "aformusatii",
         "email": "aformusatii@gmail.com"
