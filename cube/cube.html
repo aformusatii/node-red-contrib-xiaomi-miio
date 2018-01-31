@@ -1,0 +1,48 @@
+<script type="text/javascript">
+    RED.nodes.registerType('miio-cube', {
+        category: 'Xiaomi miIO',
+        color: '#a6bbcf',
+        defaults: {
+            name: {value:""},
+            deviceId: {value:""}
+        },
+        inputs:0,
+        outputs:8,
+        icon: "debug.png",
+        label: function() {
+            return this.name||"miio-cube";
+        },
+        outputLabels: ['On All Events', 'On Rotate', 'On Shake', 'On Tap Twice', 'On Flip 90', 'On Flip 180', 'On Free Fall', 'On Move'],
+        oneditprepare: function() {
+            var node = this;
+            
+            for (key in RED.settings.miioCubeDevices) {
+                var device = RED.settings.miioCubeDevices[key];
+                if (device.model.indexOf('cube') !== -1) {
+                    $('#node-input-deviceId').append('<option value="' + device.id + '">' + device.id + ' ' + device.model + '</option>');
+                }
+            }
+            
+            $('#node-input-deviceId').val(node.deviceId);
+        },
+        oneditsave: function() {
+            var node = this;
+            node.deviceId = $('#node-input-deviceId').val();
+        }
+    });
+</script>
+
+<script type="text/x-red" data-template-name="miio-cube">
+    <div class="form-row">
+        <label for="node-input-name"><i class="icon-tag"></i> Name</label>
+        <input type="text" id="node-input-name" placeholder="Name">
+    </div>
+    <div class="form-row">
+        <label for="node-input-deviceId"><i class="icon-tag"></i> Device</label>
+        <select type="text" id="node-input-deviceId" placeholder="ex: 158d0001a2ca33"></select>
+    </div>
+</script>
+
+<script type="text/x-red" data-help-name="miio-cube">
+    <p>Xiaomi miIO device library for node red</p>
+</script>

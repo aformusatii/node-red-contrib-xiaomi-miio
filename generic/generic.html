@@ -1,0 +1,46 @@
+<script type="text/javascript">
+    RED.nodes.registerType('miio-generic', {
+        category: 'Xiaomi miIO',
+        color: '#a6bbcf',
+        defaults: {
+            name: {value:""},
+            deviceId: {value:""}
+        },
+        inputs:1,
+        outputs:1,
+        icon: "debug.png",
+        label: function() {
+            return this.name||"miio-generic";
+        },
+        outputLabels: ['On Data'],
+        oneditprepare: function() {
+            var node = this;
+            
+            for (key in RED.settings.miioGenericDevices) {
+                var device = RED.settings.miioGenericDevices[key];
+                $('#node-input-deviceId').append('<option value="' + device.id + '">' + device.id + ' ' + device.model + '</option>');
+            }
+            
+            $('#node-input-deviceId').val(node.deviceId);
+        },
+        oneditsave: function() {
+            var node = this;
+            node.deviceId = $('#node-input-deviceId').val();
+        }
+    });
+</script>
+
+<script type="text/x-red" data-template-name="miio-generic">
+    <div class="form-row">
+        <label for="node-input-name"><i class="icon-tag"></i> Name</label>
+        <input type="text" id="node-input-name" placeholder="Name">
+    </div>
+    <div class="form-row">
+        <label for="node-input-deviceId"><i class="icon-tag"></i> Device</label>
+        <select type="text" id="node-input-deviceId" placeholder="ex: 158d0001a2ca33"></select>
+    </div>
+</script>
+
+<script type="text/x-red" data-help-name="miio-generic">
+    <p>Xiaomi miIO device library for node red</p>
+</script>

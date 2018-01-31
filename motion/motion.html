@@ -1,0 +1,49 @@
+<script type="text/javascript">
+    RED.nodes.registerType('miio-motion', {
+        category: 'Xiaomi miIO',
+        color: '#a6bbcf',
+        defaults: {
+            name: {value:""},
+            deviceId: {value:""}
+        },
+        inputs:0,
+        outputs:1,
+        icon: "debug.png",
+        label: function() {
+            return this.name||"miio-motion";
+        },
+        outputLabels: ['On Motion'],
+        oneditprepare: function() {
+            var node = this;
+            //console.log(RED.settings.miioSwitchDevices);
+            
+            for (key in RED.settings.miioMotionDevices) {
+                var device = RED.settings.miioMotionDevices[key];
+                if (device.model.indexOf('motion') !== -1) {
+                    $('#node-input-deviceId').append('<option value="' + device.id + '">' + device.id + '</option>');
+                }
+            }
+            
+            $('#node-input-deviceId').val(node.deviceId);
+        },
+        oneditsave: function() {
+            var node = this;
+            node.deviceId = $('#node-input-deviceId').val();
+        }
+    });
+</script>
+
+<script type="text/x-red" data-template-name="miio-motion">
+    <div class="form-row">
+        <label for="node-input-name"><i class="icon-tag"></i> Name</label>
+        <input type="text" id="node-input-name" placeholder="Name">
+    </div>
+    <div class="form-row">
+        <label for="node-input-deviceId"><i class="icon-tag"></i> Device</label>
+        <select type="text" id="node-input-deviceId" placeholder="ex: 158d0001a2ca33"></select>
+    </div>
+</script>
+
+<script type="text/x-red" data-help-name="miio-motion">
+    <p>Xiaomi miIO device library for node red</p>
+</script>

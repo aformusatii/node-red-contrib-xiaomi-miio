@@ -1,0 +1,26 @@
+{
+    "name": "node-red-contrib-xiaomi-miio",
+    "version": "0.0.1",
+    "license": "MIT",
+    "description": "miIO device library for node red",
+    "maintainers": [{
+        "name": "aformusatii",
+        "email": "aformusatii@gmail.com"
+    }],
+    "keywords": ["node-red", "miio", "mi", "mijia", "xiaomi"],
+    "node-red": {
+        "nodes": {
+            "switch": "switch/switch.js",
+            "cube": "cube/cube.js",
+            "motion": "motion/motion.js",
+            "magnet": "magnet/magnet.js",
+            "sensor-ht": "sensor-ht/sensor-ht.js",
+            "generic": "generic/generic.js",
+            "air-purifier": "air-purifier/air-purifier.js",
+            "listener": "listener/listener.js"
+        }
+    },
+    "dependencies": {
+        "miio": "0.13.0"
+    }
+}
