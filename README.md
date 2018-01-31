@@ -1,7 +1,6 @@
 Node-red node library for controlling Xiaomi devices. Obviously it uses popular [miIO device library](https://github.com/aholstenson/miio). 
 
-There are already a couple of libraries doing something similar... this one I have wrote for myself because it gives more flexibility and covers more devices like Air Purifier, Cube. The generic node even can support any device miIO library which I now haven't yet tested. 
-
+There are already a couple of libraries doing similar thing... this one I have wrote for myself because it gives more flexibility and covers more devices like Air Purifier, Cube. The generic node even can cover even more devices. 
 
 #### Supported (was tested with) devices:
 - Xiaomi Switch
