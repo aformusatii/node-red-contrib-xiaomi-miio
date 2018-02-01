@@ -12,6 +12,7 @@
         label: function() {
             return this.name||"miio-cube";
         },
+        paletteLabel: "cube",
         outputLabels: ['On All Events', 'On Rotate', 'On Shake', 'On Tap Twice', 'On Flip 90', 'On Flip 180', 'On Free Fall', 'On Move'],
         oneditprepare: function() {
             var node = this;
@@ -44,5 +45,7 @@
 </script>
 
 <script type="text/x-red" data-help-name="miio-cube">
-    <p>Xiaomi miIO device library for node red</p>
+    <p>Xiaomi Mi Magic Cube.</p>
+    Input device, please double click and select device.
+    Use debug node to see the output.
 </script>

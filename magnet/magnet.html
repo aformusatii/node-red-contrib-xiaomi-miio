@@ -12,6 +12,7 @@
         label: function() {
             return this.name||"miio-magnet";
         },
+        paletteLabel: "magnet",
         outputLabels: ['On Magnet State Change'],
         oneditprepare: function() {
             var node = this;
@@ -44,5 +45,7 @@
 </script>
 
 <script type="text/x-red" data-help-name="miio-magnet">
-    <p>Xiaomi miIO device library for node red</p>
+    <p>Xiaomi Window/Door Sensor.</p>
+    Input device, captures magnet events.
+    Use debug node to see the output.
 </script>

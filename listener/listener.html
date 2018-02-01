@@ -12,6 +12,7 @@
         label: function() {
             return this.name||"miio-listener";
         },
+        paletteLabel: "listener",
         outputLabels: ['On Event'],
         oneditprepare: function() {
             var node = this;
@@ -42,5 +43,7 @@
 </script>
 
 <script type="text/x-red" data-help-name="miio-listener">
-    <p>Xiaomi miIO device library for node red</p>
+    <p>Generic Device Listener</p>
+    Input device, it captures all actions and property changes.
+    Use debug node to see the output.
 </script>

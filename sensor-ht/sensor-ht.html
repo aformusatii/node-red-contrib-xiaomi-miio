@@ -12,6 +12,7 @@
         label: function() {
             return this.name||"miio-sensor-ht";
         },
+        paletteLabel: "T/H Sensor",
         outputLabels: ['On Data'],
         oneditprepare: function() {
             var node = this;
@@ -44,5 +45,7 @@
 </script>
 
 <script type="text/x-red" data-help-name="miio-sensor-ht">
-    <p>Xiaomi miIO device library for node red</p>
+    <p>Xiaomi Temperature/Humidity Sensor.</p>
+    Input device with an external trigger, queries for temperature and humidity sensor properties.
+    Use debug node to see the output.
 </script>

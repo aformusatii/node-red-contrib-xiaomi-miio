@@ -12,6 +12,7 @@
         label: function() {
             return this.name||"miio-generic";
         },
+        paletteLabel: "device",
         outputLabels: ['On Data'],
         oneditprepare: function() {
             var node = this;
@@ -42,5 +43,8 @@
 </script>
 
 <script type="text/x-red" data-help-name="miio-generic">
-    <p>Xiaomi miIO device library for node red</p>
+    <p>Generic Device Reader.</p>
+    This element simply reads all properties from a given device.
+    Input payload is used only as a trigger.
+    Use debug node to see the output.
 </script>

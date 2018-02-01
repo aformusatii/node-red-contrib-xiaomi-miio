@@ -12,6 +12,7 @@
         label: function() {
             return this.name||"miio-motion";
         },
+        paletteLabel: "motion",
         outputLabels: ['On Motion'],
         oneditprepare: function() {
             var node = this;
@@ -45,5 +46,7 @@
 </script>
 
 <script type="text/x-red" data-help-name="miio-motion">
-    <p>Xiaomi miIO device library for node red</p>
+    <p>Xiaomi Motion Sensor.</p>
+    Input device, captures motion sensor events.
+    Use debug node to see the output.
 </script>

@@ -14,6 +14,7 @@ There are already a couple of similar libraries... this one I have wrote for mys
 
 #### Installation:
 ```bash
+cd ~\.node-red
 npm install node-red-contrib-xiaomi-miio
 ```
 
@@ -24,4 +25,36 @@ This library uses standard way of detecting all available devices, this means th
 
 ![Nodes](docs/Nodes.png?raw=true "Nodes")
 
-To understand how each node is working just drag them to the flow editor and then look at the Info tab.
+See node Info tab for more details.
+
+##### Cube Node:
+
+![Cube Node](docs/cube.png?raw=true "Cube Node")
+
+##### Air Purifier Node:
+
+![Air Purifier Node](docs/air-purifier.png?raw=true "Air Purifier Node")
+
+##### Temperature and Humidity Sensor Node:
+
+![TH Node](docs/ht-sensor.png?raw=true "TH Node")
+
+##### Window/Door Sensor Node:
+
+![Magnet Node](docs/magnet.png?raw=true "Magnet Node")
+
+##### Motion Sensor Node:
+
+![Motion Node](docs/motion.png?raw=true "Motion Node")
+
+##### Switch Node:
+
+![Switch Node](docs/switch.png?raw=true "Switch Node")
+
+##### Generic Properties Reader Node:
+
+![Generic Node](docs/generic-device.png?raw=true "Generic Node")
+
+##### Listener Node:
+
+![Listener Node](docs/listener.png?raw=true "Listener Node")

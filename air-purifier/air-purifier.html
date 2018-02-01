@@ -10,8 +10,9 @@
         outputs:0,
         icon: "debug.png",
         label: function() {
-            return this.name||"miio-air-purifier";
+            return this.name||"miio-air";
         },
+        paletteLabel: "air purifier",
         oneditprepare: function() {
             var node = this;
             
@@ -43,5 +44,8 @@
 </script>
 
 <script type="text/x-red" data-help-name="miio-air-purifier">
-    <p>Xiaomi miIO device library for node red</p>
+    <p>Xiaomi Air Purifier</p>
+    Output device, inject JSON payload to set Air Purifier properties.
+    Sample JSON:
+    <pre><code>payload: {power: true, favoriteLevel: 1, buzzer: true, mode: 'favorite'}</code></pre>
 </script>
