@@ -1,7 +1,5 @@
 Node-red node library for controlling Xiaomi devices. Obviously it uses popular [miIO device library](https://github.com/aholstenson/miio). 
 
-There are already a couple of similar libraries... this one I have wrote for myself because it gives more flexibility and covers more devices like Air Purifier, Cube. The generic node can cover even more devices. 
-
 #### Supported (was tested with) devices:
 - Xiaomi Switch
 - Xiaomi Cube
@@ -14,12 +12,11 @@ There are already a couple of similar libraries... this one I have wrote for mys
 
 #### Installation:
 ```bash
-cd ~\.node-red
 npm install node-red-contrib-xiaomi-miio
 ```
 
 #### Usage:
-This library uses standard way of detecting all available devices, this means that you have to configure [miIO device library](https://github.com/aholstenson/miio) if you want to see devices available through Xiaomi Gateway, there is some magic for obtaining security token. By default this library will see only IP enabled devices from your local network. 
+This library uses standard way of detecting all available devices, this means that you have to configure [miIO device library](https://github.com/aholstenson/miio) if you want to see devices available through Xiaomi Gateway. By default this library will see only IP enabled devices from your local network. 
 
 ##### Nodes:
 
