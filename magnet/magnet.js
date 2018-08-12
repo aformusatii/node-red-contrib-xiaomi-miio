@@ -21,9 +21,9 @@ module.exports = function(RED) {
                     var msg = {
                         payload: {
                             action: e.value ? 'open' : 'close',
-                            prop: e.property,
+                            prop: e.key,
                             newValue: e.value,
-                            oldValue: e.oldValue
+                            oldValue: 'deprecated'
                         }
                     };
     

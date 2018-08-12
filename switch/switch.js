@@ -24,10 +24,10 @@ module.exports = function(RED) {
                     // create multi output message
                     var out = [null, null, null, null];
                     
-                    var msg = {payload: e.id};
+                    var msg = {payload: e};
                     out[PIN_ALL] = msg;
                     
-                    switch (e.id) {
+                    switch (e.action) {
                         case 'click':
                             out[PIN_CLICK] = msg;
                             break;
@@ -42,7 +42,7 @@ module.exports = function(RED) {
                             break;
             
                         default:
-                            console.log('Unrecognized event ', e.id);
+                            console.log('Unrecognized event ', e.action);
                     }
                     
                     _node.send(out);

@@ -53,11 +53,11 @@ module.exports = function(RED) {
                     // create multi output message
                     var out = new Array(actions.size);
     
-                    var action = actions[e.id];
+                    var action = actions[e.action];
     
                     var msg = {
                         payload: {
-                            action: e.id,
+                            action: e.action,
                             amount: e.amount
                         }
                     };

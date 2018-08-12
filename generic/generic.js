@@ -19,9 +19,11 @@ module.exports = function(RED) {
                 
                 if (device) {
                     
-                    msg.payload = device.properties;
-                    _node.send(msg);
-                    
+                    device.getAllProperties(val => {
+                        msg.payload = val;
+                        _node.send(msg);
+                    });
+
                 } else {
                     console.log('No such device with identifier ', deviceId);        
                 }

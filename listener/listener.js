@@ -20,11 +20,11 @@ module.exports = function(RED) {
     
                     var msg = {
                         payload: {
-                            deviceId: deviceId,
-                            model: e.device.model,
-                            property: e.property,
+                            deviceId: e.deviceId,
+                            model: e.model,
+                            property: e.key,
                             newValue: e.value,
-                            oldValue: e.oldValue
+                            oldValue: 'deprecated'
                         }
                     };
     
