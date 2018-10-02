@@ -14,14 +14,12 @@ module.exports = function(RED) {
         var deviceId = config.deviceId;
         if (deviceId) {
             
-            _node.on('input',function() {
+            _node.on('input',function(msg) {
                 var device = miio.devices[deviceId];
                 
                 if (device) {
-                    
-                    _node.send({
-                        payload: device.properties
-                    });
+                    msg.payload = device.properties;
+                    _node.send(msg);
                     
                 } else {
                     console.log('No such device with identifier ', deviceId);        
