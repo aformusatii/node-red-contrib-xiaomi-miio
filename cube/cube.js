@@ -76,7 +76,7 @@ module.exports = function(RED) {
             });
             
         } else {
-            console.log('Device identifier not specified.');
+            _node.error('Device identifier not specified.');
         }
         
         _node._enabled = true;

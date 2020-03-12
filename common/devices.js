@@ -1,6 +1,8 @@
 const miio = require('miio');
 const util = require('util');
 
+console.log('Miio path: ', require.resolve('miio'));
+
 var allDevices = {
     instance: Math.random()
 };
@@ -9,12 +11,11 @@ var optionDevices = [];
 
 var propertyCallbacks = {};
 var actionCallbacks = {};
-var motionCallbacks = {};
 
 var disableEventListener = true;
 
 const devices = miio.devices({
-	cacheTime: 300 // 5 minutes. Default is 1800 seconds (30 minutes)
+	cacheTime: 1800 // 30 minutes
 });
 
 /* ======================================================================================================= */
@@ -27,6 +28,7 @@ devices.on('available', reg => {
 	}
 	
 	console.log('Detected device with identifier ', reg.id, ' types ', device.metadata.types, ' model ', device.miioModel);
+	console.log(device.properties)
 
 	setupLegacySupport(reg.id, device);
 	
@@ -249,8 +251,5 @@ module.exports = {
     },
     registerActionListener: function(deviceId, callback) {
     	addCallbacks(deviceId, actionCallbacks, callback);
-    },
-    registerMotionListener: function(deviceId, callback) {
-    	addCallbacks(deviceId, motionCallbacks, callback);
     }
 }

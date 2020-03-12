@@ -7,38 +7,40 @@ module.exports = function(RED) {
         
         RED.nodes.createNode(this, config);
         var _node = this;
-
+        _node._enabled = true;
+        
         // hook device events
-        var deviceId = config.deviceId;
-        if (deviceId) {
+        _node.on('input', function(msg) {
+            if (!_node._enabled) {
+                return;
+            }
             
-            _node.on('input',function(msg) {
-                var payload = msg.payload;
-                
-                var device = payload.deviceId ? miio.devices[payload.deviceId] : miio.devices[deviceId];
+            var originalPayload = msg.payload;
+            msg.payload = {};
+
+            var deviceId = config.deviceId;
+            if (deviceId) {
+                var device = originalPayload.deviceId ? miio.devices[originalPayload.deviceId] : miio.devices[deviceId];
                 
                 if (device) {
-                    
                     device.getAllProperties(val => {
                         msg.payload = val;
-                        _node.send(msg);
                     });
 
                 } else {
-                    console.log('No such device with identifier ', deviceId);        
+                    _node.error('No such device with identifier ' + deviceId);
                 }
-            });
+                
+            } else {
+                _node.error('Device identifier not specified.');
+            }
             
-        } else {
-            console.log('Device identifier not specified.');
-        }
-
-        _node._enabled = true;
+            _node.send(msg);
+        });
         
         _node.on('close',function() {
             _node._enabled = false;
         });
-        
     }
 
     RED.nodes.registerType("miio-generic", miioGeneric, {

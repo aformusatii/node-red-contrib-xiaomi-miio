@@ -32,6 +32,18 @@ module.exports = function(RED) {
                 }
             });
             
+            miio.registerActionListener(deviceId, function(e) {
+                // Check if current instance is still enabled, this avoid running old callback when the node is re-loaded
+                if (_node._enabled) {
+
+                    var msg = {
+                        payload: e
+                    };
+    
+                    _node.send(msg);
+                }
+            });  
+            
         } else {
             console.log('Device identifier not specified.');
         }

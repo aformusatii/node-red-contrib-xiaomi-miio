@@ -1,0 +1,32 @@
+<script type="text/javascript">
+    RED.nodes.registerType('miio-devices', {
+        category: 'Xiaomi miIO',
+        color: '#a6bbcf',
+        defaults: {
+            name: {value:""},
+            deviceId: {value:""}
+        },
+        inputs:1,
+        outputs:1,
+        icon: "debug.png",
+        label: function() {
+            return this.name||"miio-devices";
+        },
+        paletteLabel: "devices",
+        outputLabels: ['On Data']
+    });
+</script>
+
+<script type="text/x-red" data-template-name="miio-devices">
+    <div class="form-row">
+        <label for="node-input-name"><i class="icon-tag"></i> Name</label>
+        <input type="text" id="node-input-name" placeholder="Name">
+    </div>
+</script>
+
+<script type="text/x-red" data-help-name="miio-devices">
+    <p>Lists all Devices.</p>
+    This element simply lists all devices.
+    Input payload is used only as a trigger.
+    Use debug node to see the output.
+</script>
