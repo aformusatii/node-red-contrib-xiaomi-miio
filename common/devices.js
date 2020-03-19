@@ -92,7 +92,7 @@ var setupLegacySupport = function(id, device) {
         setTimeout(function() {
             disableEventListener = false;
             console.log('Enabled event listeners');
-        }, 5000);
+        }, 10000);
 	}
     
     // backward compatibility stuff

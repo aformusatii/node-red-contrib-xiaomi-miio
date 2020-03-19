@@ -19,13 +19,7 @@ module.exports = function(RED) {
                 if (_node._enabled) {
     
                     var msg = {
-                        payload: {
-                            deviceId: e.deviceId,
-                            model: e.model,
-                            property: e.key,
-                            newValue: e.value,
-                            oldValue: 'deprecated'
-                        }
+                        payload: e
                     };
     
                     _node.send(msg);

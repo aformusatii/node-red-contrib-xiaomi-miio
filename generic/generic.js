@@ -25,17 +25,19 @@ module.exports = function(RED) {
                 if (device) {
                     device.getAllProperties(val => {
                         msg.payload = val;
+                        _node.send(msg);
                     });
 
                 } else {
                     _node.error('No such device with identifier ' + deviceId);
+                    _node.send(msg);
                 }
                 
             } else {
                 _node.error('Device identifier not specified.');
+                _node.send(msg);
             }
             
-            _node.send(msg);
         });
         
         _node.on('close',function() {
