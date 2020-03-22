@@ -1,0 +1,34 @@
+const miio = require('miio');
+const util = require('util');
+
+console.log('Miio path: ', require.resolve('miio'));
+
+const devices = miio.devices({
+	cacheTime: 1800 // 30 minutes
+});
+
+/* ======================================================================================================= */
+devices.on('available', reg => {
+
+	const device = reg.device;
+	if(!device) {
+		console.log(reg.id, 'could not be connected to');
+		return;
+	}
+	
+	console.log('Detected device with identifier ', reg.id, ' types ', device.metadata.types, ' model ', device.miioModel);
+	console.log(device.properties);
+	console.log('Token', device.management.token);
+
+});
+
+/* ======================================================================================================= */
+devices.on('unavailable', device => {
+    // Device is no longer available and is destroyed
+    console.log('Device unavailable', device);
+});
+
+// Resolve a device, resolving the token automatically or from storage
+miio.device({ address: '192.168.1.203' })
+  .then(device => console.log(device.management.token) )
+  .catch(err => console.log('Error ', err));

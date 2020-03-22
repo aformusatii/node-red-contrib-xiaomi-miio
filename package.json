@@ -1,6 +1,6 @@
 {
     "name": "node-red-contrib-xiaomi-miio",
-    "version": "1.0.1",
+    "version": "1.0.2",
     "license": "MIT",
     "description": "miIO device library for node red",
     "repository": "aformusatii/node-red-contrib-xiaomi-miio",
@@ -19,7 +19,8 @@
             "generic": "generic/generic.js",
             "air-purifier": "air-purifier/air-purifier.js",
             "listener": "listener/listener.js",
-            "devices": "devices/devices.js"
+            "devices": "devices/devices.js",
+            "tokens": "tokens/tokens.js"
         }
     },
     "dependencies": {

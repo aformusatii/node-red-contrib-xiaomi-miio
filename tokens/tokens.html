@@ -1,0 +1,102 @@
+<script type="text/x-red" data-template-name="miio-tokens">
+    <div class="form-row">
+        <label for="node-input-name"><i class="fa fa-tag"></i> Name</span></label>
+        <input type="text" id="node-input-name" placeholder="Node name">
+    </div>
+    <div class="form-row" style="margin-bottom:0;">
+        <label><i class="fa fa-list"></i> Tokens</span></label>
+    </div>
+    <div class="form-row node-miio-tokens-container-row">
+        <ol id="node-miio-tokens-container"></ol>
+    </div>
+</script>
+
+<script type="text/x-red" data-help-name="miio-tokens">
+    <p>Add miio tokens manualy. Sometimes automatic discovery with miio built in storage does not work, use this node as workaround.</p>
+</script>
+
+<script type="text/javascript">
+(function() {
+    
+    RED.nodes.registerType('miio-tokens', {
+        category: 'Xiaomi miIO',
+        color: '#a6bbcf',
+        defaults: {
+            name: {value:""},
+            devices: {value:{}}
+        },
+        inputs:0,
+        outputs:0,
+        paletteLabel: "tokens",
+        icon: "debug.png",
+        label: function() {
+            return this.name||"miio-tokens";
+        },
+        oneditprepare: function() {
+            function resizeRule(rule) {
+                var newWidth = rule.width();
+                rule.find('.miio-tokens-input').css("width",(newWidth-15)/2);
+
+            }
+            var headerList = $("#node-miio-tokens-container").css('min-height','150px').css('min-width','450px').editableList({
+                addItem: function(container,i,device) {
+                    var row = $('<div/>').appendTo(container);
+                    
+                    var propertyName = $('<input/>', {
+                        class:"node-miio-tokens-key miio-tokens-input", 
+                        type:"text",
+                        placeholder: "IP Address"
+                    }).appendTo(row);
+
+                    var propertyValue = $('<input/>', {
+                        class:"node-miio-tokens-value miio-tokens-input", 
+                        type:"text", 
+                        style:"margin-left: 10px",
+                        placeholder: "Token Hex"
+                    }).appendTo(row);
+
+                    propertyName.val(device.h);
+                    propertyValue.val(device.v);
+
+                    resizeRule(container);
+                },
+                resizeItem: resizeRule,
+                removable: true
+            });
+
+            if (this.devices) {
+                for (var key in this.devices) {
+                    if (this.devices.hasOwnProperty(key)) {
+                        headerList.editableList('addItem',{h:key,v:this.devices[key]});
+                    }
+                }
+            }
+        },
+        oneditsave: function() {
+            var devices = $("#node-miio-tokens-container").editableList('items');
+            var node = this;
+            node.devices = {};
+            devices.each(function(i) {
+                var device = $(this);
+                var key = device.find(".node-miio-tokens-key").val();
+                var value = device.find(".node-miio-tokens-value").val();
+                
+                if (key !== '') {
+                    node.devices[key] = value;
+                }
+            });
+        },
+        oneditresize: function(size) {
+            var rows = $("#dialog-form>div:not(.node-miio-tokens-container-row)");
+            var height = size.height;
+            for (var i=0; i<rows.size(); i++) {
+                height -= $(rows[i]).outerHeight(true);
+            }
+            var editorRow = $("#dialog-form>div.node-miio-tokens-container-row");
+            height -= (parseInt(editorRow.css("marginTop"))+parseInt(editorRow.css("marginBottom")));
+
+            $("#node-miio-tokens-container").editableList('height',height);
+        }
+    });
+})();
+</script>

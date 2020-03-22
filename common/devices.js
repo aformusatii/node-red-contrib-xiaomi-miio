@@ -18,6 +18,7 @@ const devices = miio.devices({
 	cacheTime: 1800 // 30 minutes
 });
 
+
 /* ======================================================================================================= */
 devices.on('available', reg => {
 
@@ -27,54 +28,74 @@ devices.on('available', reg => {
 		return;
 	}
 	
-	console.log('Detected device with identifier ', reg.id, ' types ', device.metadata.types, ' model ', device.miioModel);
+    registerDevice(reg.id, device);
+    
+});
+
+/* ======================================================================================================= */
+var registerDeviceManually = function(device) {
+    console.log('Register device manually: ', device);
+    
+    miio.device({
+        address: device.address, 
+        token: device.token
+    })
+    .then(device => registerDevice(device.id.replace('miio:', '') ,device))
+    .catch(err => console.log('Device not found ', device, err));  
+}
+
+/* ======================================================================================================= */
+var registerDevice = function(deviceId, device) {
+    // make sure device id is string always
+    deviceId = deviceId + '';
+    	
+	console.log('Detected device with identifier ', deviceId, ' types ', device.metadata.types, ' model ', device.miioModel);
 	console.log(device.properties)
 
-	setupLegacySupport(reg.id, device);
+	setupLegacySupport(deviceId, device);
 	
-	if (typeof allDevices[reg.id] === 'undefined') {
+	if (typeof allDevices[deviceId] === 'undefined') {
     	optionDevices.push({
-    		id: reg.id,
+    		id: deviceId,
     		model: device.miioModel,
     		type: device.type
     	});
     	
-    	allDevices[reg.id] = device;
+    	allDevices[deviceId] = device;
     	
         switch (device.type) {
             case 'gateway':
-                handleGateway(reg.id, device);
+                handleGateway(deviceId, device);
                 break;
     
             case 'air-purifier':
-                handleAirPurifier(reg.id, device);
+                handleAirPurifier(deviceId, device);
                 break;
     
             case 'controller':
             	//console.log('sub-device!' + util.inspect(device, { showHidden: true, depth: 5 }) );
-                handleController(reg.id, device);
+                handleController(deviceId, device);
                 break;
     
             case 'magnet':
-                handleMagnet(reg.id, device);
+                handleMagnet(deviceId, device);
                 break;
     
             case 'sensor':
-                handleSensor(reg.id, device);
+                handleSensor(deviceId, device);
                 break;
     
             case 'motion':
-                handleMotion(reg.id, device);
+                handleMotion(deviceId, device);
                 break;
     
             default:
-                console.log('Skip device: ' + reg.id + ' type:' + device.type);
+                console.log('Skip device: ' + deviceId + ' type:' + device.type);
         }
 	} else {
 	    console.log('Device already initialized.');
 	}
-
-});
+}
 
 /* ======================================================================================================= */
 devices.on('unavailable', device => {
@@ -251,5 +272,6 @@ module.exports = {
     },
     registerActionListener: function(deviceId, callback) {
     	addCallbacks(deviceId, actionCallbacks, callback);
-    }
+    },
+    registerDeviceManually: registerDeviceManually
 }
