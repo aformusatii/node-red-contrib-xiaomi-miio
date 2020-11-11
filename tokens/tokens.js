@@ -9,15 +9,18 @@ module.exports = function(RED) {
         var _node = this;
         
         if (config.devices) {
+            var devicesWithTokens = [];
+            
             for (var key in config.devices) {
                 if (config.devices.hasOwnProperty(key)) {
-
-                    miio.registerDeviceManually({
+                    devicesWithTokens.push({
                         address: key,
                         token: config.devices[key]
                     });
                 }
             }
+            
+            miio.registerDevicesManually(devicesWithTokens);
         }
     }
 

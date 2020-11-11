@@ -33,15 +33,31 @@ devices.on('available', reg => {
 });
 
 /* ======================================================================================================= */
-var registerDeviceManually = function(device) {
-    console.log('Register device manually: ', device);
+var registerDevicesManually = function(devicesWithTokens) {
+
+    devicesWithTokens.forEach(deviceWithToken => {
+        console.log('Register device manually: ', deviceWithToken);
+        
+        miio.device({
+            address: deviceWithToken.address, 
+            token: deviceWithToken.token
+        })
+        .then(device => registerDevice(device.id.replace('miio:', '') ,device))
+        .catch(err => console.log('Device not found ', device, err));          
+    });
     
-    miio.device({
-        address: device.address, 
-        token: device.token
-    })
-    .then(device => registerDevice(device.id.replace('miio:', '') ,device))
-    .catch(err => console.log('Device not found ', device, err));  
+    console.log('Scan again for miio devices...');
+    
+    miio.devices({cacheTime: 1800}).on('available', reg => {
+    	var device = reg.device;
+    	if(!device) {
+    		console.log(reg.id, 'could not be connected to');
+    		return;
+    	}
+    	
+        registerDevice(reg.id, device);
+    });
+
 }
 
 /* ======================================================================================================= */
@@ -49,7 +65,7 @@ var registerDevice = function(deviceId, device) {
     // make sure device id is string always
     deviceId = deviceId + '';
     	
-	console.log('Detected device with identifier ', deviceId, ' types ', device.metadata.types, ' model ', device.miioModel);
+	console.log('Detected device wit+h identifier ', deviceId, ' types ', device.metadata.types, ' model ', device.miioModel);
 	console.log(device.properties)
 
 	setupLegacySupport(deviceId, device);
@@ -273,5 +289,5 @@ module.exports = {
     registerActionListener: function(deviceId, callback) {
     	addCallbacks(deviceId, actionCallbacks, callback);
     },
-    registerDeviceManually: registerDeviceManually
+    registerDevicesManually: registerDevicesManually
 }

@@ -28,7 +28,19 @@ devices.on('unavailable', device => {
     console.log('Device unavailable', device);
 });
 
-// Resolve a device, resolving the token automatically or from storage
-miio.device({ address: '192.168.1.203' })
-  .then(device => console.log(device.management.token) )
-  .catch(err => console.log('Error ', err));
+setTimeout(function() {
+	
+	miio.device({
+	    address: '192.168.100.15', 
+	    token: '****'
+	})
+	.then(device => console.log('A->', device))
+	.catch(err => console.log('Device not found ', err));
+	
+	var newDevices = miio.devices({cacheTime: 300});
+	
+	newDevices.on('available', reg => {
+		console.log('B-> ', reg);
+	});
+	
+}, 5000);
